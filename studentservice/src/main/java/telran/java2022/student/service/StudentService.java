@@ -1,5 +1,7 @@
 package telran.java2022.student.service;
 
+import java.util.List;
+
 import telran.java2022.student.dto.StudentAddScore;
 import telran.java2022.student.dto.StudentCreateDto;
 import telran.java2022.student.dto.StudentDto;
@@ -15,11 +17,11 @@ public interface StudentService {
     StudentCreateDto updateStudent(Integer id, StudentUpdateDto studentUpdateDto);
 
     Boolean addScore(Integer id, StudentAddScore studentAddScore);
-    
-    StudentDto[] findStudents(String name);
-    
+
+    List<StudentDto> findStudents(String name);
+
     Integer studentsQuantity(String[] students);
-    
-    StudentDto[] minScore(Integer score);
+
+    List<StudentDto> minScore(Integer score);
 
 }

@@ -1,5 +1,7 @@
 package telran.java2022.student.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,7 +47,7 @@ public class StudentController {
     }
 
     @GetMapping("/students/name/{name}")
-    public StudentDto[] findStudents(@PathVariable String name) {
+    public List<StudentDto> findStudents(@PathVariable String name) {
 	return studentService.findStudents(name);
     }
 
@@ -54,8 +56,8 @@ public class StudentController {
 	return studentService.studentsQuantity(students);
     }
 
-    @GetMapping("/students/exam/History/minscore/{score}")
-    public StudentDto[] minScore(@PathVariable Integer score) {
+    @GetMapping("/students/exam/{exam}/minscore/{score}")
+    public List<StudentDto> minScore(@PathVariable Integer score, @PathVariable String exam) {
 	return studentService.minScore(score);
     }
 }
