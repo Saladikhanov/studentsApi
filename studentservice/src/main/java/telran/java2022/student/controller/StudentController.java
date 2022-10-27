@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import telran.java2022.student.dto.StudentAddScore;
+import telran.java2022.student.dto.ScoreDto;
 import telran.java2022.student.dto.StudentCreateDto;
 import telran.java2022.student.dto.StudentDto;
 import telran.java2022.student.dto.StudentUpdateDto;
@@ -42,8 +42,8 @@ public class StudentController {
     }
 
     @PutMapping("/score/student/{id}")
-    public Boolean addScore(@PathVariable Integer id, @RequestBody StudentAddScore studentAddScore) {
-	return studentService.addScore(id, studentAddScore);
+    public Boolean addScore(@PathVariable Integer id, @RequestBody ScoreDto scoreDto) {
+	return studentService.addScore(id, scoreDto);
     }
 
     @GetMapping("/students/name/{name}")
@@ -58,6 +58,6 @@ public class StudentController {
 
     @GetMapping("/students/exam/{exam}/minscore/{score}")
     public List<StudentDto> minScore(@PathVariable Integer score, @PathVariable String exam) {
-	return studentService.minScore(score);
+	return studentService.minScore(score, exam);
     }
 }
