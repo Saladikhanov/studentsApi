@@ -2,6 +2,7 @@ package telran.java2022.student.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import telran.java2022.student.service.StudentService;
 
 @RestController
 public class StudentController {
+    @Autowired
     StudentService studentService;
 
     @PostMapping("/student")
@@ -52,8 +54,8 @@ public class StudentController {
     }
 
     @PostMapping("/quantity/students")
-    public Integer studentsQuantity(@RequestBody String[] students) {
-	return studentService.studentsQuantity(students);
+    public Integer studentsQuantity(@RequestBody List<String> students) {
+	return studentService.getStudentsNamesQuantity(students);
     }
 
     @GetMapping("/students/exam/{exam}/minscore/{score}")

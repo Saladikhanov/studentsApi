@@ -20,7 +20,7 @@ public interface StudentService {
 
     List<StudentDto> findStudents(String name);
 
-    Integer studentsQuantity(String[] students);
+    Integer getStudentsNamesQuantity(List<String> students);
 
     List<StudentDto> minScore(Integer score, String exam);
 
