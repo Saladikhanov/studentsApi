@@ -87,10 +87,17 @@ public class StudentServiceImpl implements StudentService {
 										.filter(s -> students.contains(s.getName()))
 										.mapToInt(s -> 1).sum();
     }
-//NOT FINISHED YET! WORK IN PROGRESS
+
     @Override
     public List<StudentDto> minScore(Integer score, String exam) {
-	return null;
+	return studentRepository.getStudents().stream()
+										.filter(s -> s.getScores().getOrDefault(exam, Integer.MAX_VALUE) >= score)
+										.map(s -> StudentDto.builder()
+															.id(s.getId())
+															.name(s.getName())
+															.scores(s.getScores())
+															.build())
+										.collect(Collectors.toList());
     }
 
 }
