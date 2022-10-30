@@ -1,8 +1,6 @@
 package telran.java2022.student.service;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +33,11 @@ public class StudentServiceImpl implements StudentService {
     public StudentDto findStudent(Integer id) {
 	Student student = studentRepository.findById(id).orElse(null);
 	return student == null ? null
-		: StudentDto.builder().id(student.getId()).name(student.getName()).scores(student.getScores()).build();
+		: StudentDto.builder()
+					.id(student.getId())
+					.name(student.getName())
+					.scores(student.getScores())
+					.build();
     }
 
     @Override
@@ -45,7 +47,11 @@ public class StudentServiceImpl implements StudentService {
 	    return null;
 	}
 	studentRepository.deleteById(id);
-	return StudentDto.builder().id(student.getId()).name(student.getName()).scores(student.getScores()).build();
+	return StudentDto.builder()
+					.id(student.getId())
+					.name(student.getName())
+					.scores(student.getScores())
+					.build();
     }
 
     @Override
@@ -56,8 +62,10 @@ public class StudentServiceImpl implements StudentService {
 	}
 	student.setName(studentUpdateDto.getName());
 	student.setPassword(studentUpdateDto.getPassword());
-	return StudentCreateDto.builder().id(id).name(studentUpdateDto.getName())
-		.password(studentUpdateDto.getPassword()).build();
+	return StudentCreateDto.builder()
+							.id(id).name(studentUpdateDto.getName())
+							.password(studentUpdateDto.getPassword())
+							.build();
     }
 
     @Override
@@ -91,7 +99,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<StudentDto> minScore(Integer score, String exam) {
 	return studentRepository.getStudents().stream()
-										.filter(s -> s.getScores().getOrDefault(exam, Integer.MAX_VALUE) >= score)
+										.filter(s -> s.getScores().containsKey(exam) && s.getScores().get(exam) > score)
 										.map(s -> StudentDto.builder()
 															.id(s.getId())
 															.name(s.getName())
