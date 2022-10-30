@@ -1,5 +1,6 @@
 package telran.java2022.student.dao;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
@@ -13,7 +14,7 @@ public interface StudentRepository {
 
     void deleteById(int id);
 
-    public Map<Integer, Student> getStudents();
+    public Collection<Student> getStudents();
 
    
 

@@ -3,6 +3,7 @@ package telran.java2022.student.service;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -70,30 +71,25 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<StudentDto> findStudents(String name) {
-	
-	List<StudentDto> res = null;
-	Map<Integer, Student> allStudents = studentRepository.getStudents();
-	for (Map.Entry<Integer, Student> entry : allStudents.entrySet()) {
-	    Integer id = entry.getKey();
-	    Student student = entry.getValue();
-	    if(name.equalsIgnoreCase(student.getName())) {
-		res.add(StudentDto.builder().id(student.getId()).name(student.getName()).scores(student.getScores()).build());
-	    }
-	    
-	}
-
-	return res;
+	return studentRepository.getStudents().stream()
+										.filter(s -> name.equalsIgnoreCase(s.getName()))
+										.map(s -> StudentDto.builder()
+															.id(s.getId())
+															.name(s.getName())
+															.scores(s.getScores())
+															.build())
+										.collect(Collectors.toList());
     }
 
     @Override
     public Integer getStudentsNamesQuantity(List<String> students) {
-	
-	return null;
+	return studentRepository.getStudents().stream()
+										.filter(s -> students.contains(s.getName()))
+										.mapToInt(s -> 1).sum();
     }
-
+//NOT FINISHED YET! WORK IN PROGRESS
     @Override
     public List<StudentDto> minScore(Integer score, String exam) {
-	// TODO Auto-generated method stub
 	return null;
     }
 

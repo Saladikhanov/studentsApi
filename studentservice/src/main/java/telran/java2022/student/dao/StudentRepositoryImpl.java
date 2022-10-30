@@ -1,5 +1,6 @@
 package telran.java2022.student.dao;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -29,8 +30,8 @@ public class StudentRepositoryImpl implements StudentRepository {
     }
 
     @Override
-    public Map<Integer, Student> getStudents() {
-	return students;
+    public Collection<Student> getStudents() {
+	return students.values();
     }
 
 }
